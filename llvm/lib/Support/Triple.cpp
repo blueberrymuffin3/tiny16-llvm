@@ -65,6 +65,7 @@ StringRef Triple::getArchTypeName(ArchType Kind) {
   case tcele:          return "tcele";
   case thumb:          return "thumb";
   case thumbeb:        return "thumbeb";
+  case tiny16:         return "tiny16";
   case ve:             return "ve";
   case wasm32:         return "wasm32";
   case wasm64:         return "wasm64";
@@ -91,6 +92,8 @@ StringRef Triple::getArchTypePrefix(ArchType Kind) {
   case armeb:
   case thumb:
   case thumbeb:     return "arm";
+
+  case tiny16:      return "tiny16";
 
   case avr:         return "avr";
 
@@ -296,6 +299,7 @@ Triple::ArchType Triple::getArchTypeForLLVMName(StringRef Name) {
     .Case("tcele", tcele)
     .Case("thumb", thumb)
     .Case("thumbeb", thumbeb)
+    .Case("tiny16", tiny16)
     .Case("x86", x86)
     .Case("x86-64", x86_64)
     .Case("xcore", xcore)
@@ -406,6 +410,7 @@ static Triple::ArchType parseArch(StringRef ArchName) {
     .Case("armeb", Triple::armeb)
     .Case("thumb", Triple::thumb)
     .Case("thumbeb", Triple::thumbeb)
+    .Case("tiny16", Triple::tiny16)
     .Case("avr", Triple::avr)
     .Case("msp430", Triple::msp430)
     .Cases("mips", "mipseb", "mipsallegrex", "mipsisa32r6",
@@ -704,6 +709,7 @@ static Triple::ObjectFormatType getDefaultFormat(const Triple &T) {
   case Triple::tce:
   case Triple::tcele:
   case Triple::thumbeb:
+  case Triple::tiny16:
   case Triple::ve:
   case Triple::xcore:
     return Triple::ELF;
@@ -1237,6 +1243,7 @@ static unsigned getArchPointerBitWidth(llvm::Triple::ArchType Arch) {
 
   case llvm::Triple::avr:
   case llvm::Triple::msp430:
+  case llvm::Triple::tiny16:
     return 16;
 
   case llvm::Triple::aarch64_32:
@@ -1318,6 +1325,7 @@ Triple Triple::get32BitArchVariant() const {
   case Triple::msp430:
   case Triple::ppc64le:
   case Triple::systemz:
+  case Triple::tiny16:
   case Triple::ve:
     T.setArch(UnknownArch);
     break;
@@ -1387,6 +1395,7 @@ Triple Triple::get64BitArchVariant() const {
   case Triple::sparcel:
   case Triple::tce:
   case Triple::tcele:
+  case Triple::tiny16:
   case Triple::xcore:
     T.setArch(UnknownArch);
     break;
