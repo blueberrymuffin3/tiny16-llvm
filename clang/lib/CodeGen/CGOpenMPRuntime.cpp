@@ -11101,6 +11101,7 @@ bool checkContext<OMP_CTX_SET_device, OMP_CTX_kind, CodeGenModule &>(
     case llvm::Triple::tcele:
     case llvm::Triple::thumb:
     case llvm::Triple::thumbeb:
+    case llvm::Triple::tiny16:
     case llvm::Triple::xcore:
     case llvm::Triple::le32:
     case llvm::Triple::le64:
